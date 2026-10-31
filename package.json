@@ -1,0 +1,20 @@
+{
+  "name": "meu-remotion",
+  "version": "1.0.0",
+  "description": "Projeto Remotion com renderização gratuita via GitHub Actions",
+  "scripts": {
+    "start": "remotion preview",
+    "build": "remotion render HelloWorld out/video.mp4",
+    "upgrade": "remotion upgrade"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.200"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.5",
+    "@types/react-dom": "^18.3.0",
+    "typescript": "^5.5.4"
+  }
+}

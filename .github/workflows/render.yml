@@ -1,0 +1,43 @@
+name: Renderizar Vídeo
+
+on:
+  workflow_dispatch:
+    inputs:
+      title:
+        description: "Título do Vídeo"
+        required: false
+        default: "Meu Vídeo Remotion"
+      subtitle:
+        description: "Subtítulo do Vídeo"
+        required: false
+        default: "Renderizado com sucesso no GitHub Actions! 🚀"
+
+jobs:
+  render:
+    name: Renderizar com Remotion
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar código do repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - name: Instalar Dependências
+        run: npm install
+
+      - name: Renderizar Vídeo MP4
+        run: |
+          mkdir -p out
+          npx remotion render HelloWorld out/video.mp4 --props="{\"titleText\":\"${{ inputs.title || 'Meu Vídeo Remotion' }}\",\"subtitleText\":\"${{ inputs.subtitle || 'Renderizado com sucesso no GitHub Actions! 🚀' }}\"}"
+
+      - name: Salvar Vídeo como Artefato para Download
+        uses: actions/upload-artifact@v4
+        with:
+          name: video-renderizado
+          path: out/video.mp4
+          retention-days: 7
