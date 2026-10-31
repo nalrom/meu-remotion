@@ -1,91 +1,51 @@
 import React from "react";
-import { interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
+import { Sequence } from "remotion";
+import { NoiseOverlay } from "./components/NoiseOverlay";
+import { Scene1Hook } from "./scenes/Scene1Hook";
+import { Scene2Illusion } from "./scenes/Scene2Illusion";
+import { Scene3Capes } from "./scenes/Scene3Capes";
+import { Scene4Municipalities } from "./scenes/Scene4Municipalities";
+import { Scene5CongressCTA } from "./scenes/Scene5CongressCTA";
 
-export interface MyVideoProps {
-  titleText: string;
-  subtitleText: string;
-}
-
-export const MainComposition: React.FC<MyVideoProps> = ({
-  titleText = "Meu Vídeo Remotion",
-  subtitleText = "Renderizado gratuitamente no GitHub Actions 🚀",
-}) => {
-  const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
-
-  // Animação de entrada suave com mola (spring)
-  const scale = spring({
-    fps,
-    frame,
-    config: {
-      damping: 12,
-    },
-  });
-
-  const opacity = interpolate(frame, [0, 25], [0, 1], {
-    extrapolateRight: "clamp",
-  });
-
+export const MainComposition: React.FC = () => {
   return (
     <div
       style={{
         flex: 1,
-        width: "100%",
-        height: "100%",
-        backgroundColor: "#090d16",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-        color: "white",
-        padding: "60px",
-        boxSizing: "border-box",
+        width: 1080,
+        height: 1920,
+        backgroundColor: "#0F172A",
+        position: "relative",
+        overflow: "hidden",
       }}
     >
-      <div
-        style={{
-          transform: `scale(${scale})`,
-          opacity,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          textAlign: "center",
-        }}
-      >
-        <div
-          style={{
-            fontSize: "100px",
-            marginBottom: "30px",
-          }}
-        >
-          🎬
-        </div>
-        <h1
-          style={{
-            fontSize: "76px",
-            fontWeight: 800,
-            margin: "0 0 24px 0",
-            background: "linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            letterSpacing: "-1px",
-          }}
-        >
-          {titleText}
-        </h1>
-        <p
-          style={{
-            fontSize: "36px",
-            color: "#94a3b8",
-            maxWidth: "850px",
-            lineHeight: 1.4,
-            margin: 0,
-          }}
-        >
-          {subtitleText}
-        </p>
-      </div>
+      {/* Paper grain noise overlay across entire video */}
+      <NoiseOverlay />
+
+      {/* Cena 1: O Gancho (00:00 – 00:05 | 300 frames) */}
+      <Sequence from={0} durationInFrames={300} name="Cena 1 - O Gancho">
+        <Scene1Hook />
+      </Sequence>
+
+      {/* Cena 2: A Ilusão do Piso vs. Realidade (00:05 – 00:12 | 420 frames) */}
+      <Sequence from={300} durationInFrames={420} name="Cena 2 - Piso vs Realidade">
+        <Scene2Illusion />
+      </Sequence>
+
+      {/* Cena 3: O Golpe na Ciência – Capes (00:12 – 00:20 | 480 frames) */}
+      <Sequence from={720} durationInFrames={480} name="Cena 3 - Golpe na Ciência">
+        <Scene3Capes />
+      </Sequence>
+
+      {/* Cena 4: Educação Básica nos Municípios (00:20 – 00:30 | 600 frames) */}
+      <Sequence from={1200} durationInFrames={600} name="Cena 4 - Municípios">
+        <Scene4Municipalities />
+      </Sequence>
+
+      {/* Cena 5: O Efeito Dominó no Congresso e CTA (00:30 – 00:40 | 600 frames) */}
+      <Sequence from={1800} durationInFrames={600} name="Cena 5 - Congresso e CTA">
+        <Scene5CongressCTA />
+      </Sequence>
     </div>
   );
 };

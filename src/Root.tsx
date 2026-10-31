@@ -1,21 +1,28 @@
 import React from "react";
 import { Composition } from "remotion";
-import { MainComposition, MyVideoProps } from "./Composition";
+import { MainComposition } from "./Composition";
 
 export const RemotionRoot: React.FC = () => {
   return (
     <>
-      <Composition<MyVideoProps>
+      {/* Principal: Cortes na Educação 2027 (@profcarli) */}
+      <Composition
+        id="Educacao2027"
+        component={MainComposition}
+        durationInFrames={2400} // 40 segundos a 60fps
+        fps={60}
+        width={1080}
+        height={1920} // Formato vertical estrito 9:16 (Instagram Reels)
+      />
+
+      {/* Alias para compatibilidade imediata com workflows anteriores */}
+      <Composition
         id="HelloWorld"
         component={MainComposition}
-        durationInFrames={150} // 5 segundos a 30fps
-        fps={30}
+        durationInFrames={2400}
+        fps={60}
         width={1080}
-        height={1920} // Formato vertical 9:16 (Stories, Reels, TikTok)
-        defaultProps={{
-          titleText: "Remotion no GitHub!",
-          subtitleText: "Renderizado 100% de graça na nuvem do GitHub Actions 🚀",
-        }}
+        height={1920}
       />
     </>
   );

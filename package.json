@@ -1,13 +1,15 @@
 {
   "name": "meu-remotion",
   "version": "1.0.0",
-  "description": "Projeto Remotion com renderização gratuita via GitHub Actions",
+  "description": "Reels Motion Design - Cortes na Educação 2027 (@profcarli)",
   "scripts": {
-    "start": "remotion preview",
-    "build": "remotion render HelloWorld out/video.mp4",
+    "start": "remotion studio",
+    "build": "remotion render Educacao2027 out/reels-educacao-2027.mp4",
+    "render": "remotion render Educacao2027 out/reels-educacao-2027.mp4",
     "upgrade": "remotion upgrade"
   },
   "dependencies": {
+    "@remotion/cli": "^4.0.200",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "remotion": "^4.0.200"

@@ -1,20 +1,14 @@
-name: Renderizar Vídeo
+name: Renderizar Vídeo Reels
 
 on:
   workflow_dispatch:
-    inputs:
-      title:
-        description: "Título do Vídeo"
-        required: false
-        default: "Meu Vídeo Remotion"
-      subtitle:
-        description: "Subtítulo do Vídeo"
-        required: false
-        default: "Renderizado com sucesso no GitHub Actions! 🚀"
+  push:
+    branches:
+      - main
 
 jobs:
   render:
-    name: Renderizar com Remotion
+    name: Renderizar Motion Reels no GitHub Actions
     runs-on: ubuntu-latest
 
     steps:
@@ -30,14 +24,14 @@ jobs:
       - name: Instalar Dependências
         run: npm install
 
-      - name: Renderizar Vídeo MP4
+      - name: Renderizar Vídeo MP4 (1080x1920 60fps)
         run: |
           mkdir -p out
-          npx remotion render HelloWorld out/video.mp4 --props="{\"titleText\":\"${{ inputs.title || 'Meu Vídeo Remotion' }}\",\"subtitleText\":\"${{ inputs.subtitle || 'Renderizado com sucesso no GitHub Actions! 🚀' }}\"}"
+          npx remotion render Educacao2027 out/reels-educacao-2027.mp4 --concurrency=2
 
       - name: Salvar Vídeo como Artefato para Download
         uses: actions/upload-artifact@v4
         with:
-          name: video-renderizado
-          path: out/video.mp4
-          retention-days: 7
+          name: reels-educacao-2027
+          path: out/reels-educacao-2027.mp4
+          retention-days: 14
